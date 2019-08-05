@@ -3,8 +3,8 @@ export const exampleEpic = (action$) => action$
     ofType(ACTION),
     switchMap(({ payload: {  } }) => fromPromise(promise())
       .pipe(
-        flatMap(() => of(({ type: SUCCESS_ACTION, payload: {  } }))),
-        catchError(() => of({ type: FAILURE_ACTION })),
+        flatMap((result) => of(({ type: SUCCESS_ACTION, payload: { result } }))),
+        catchError((error) => of({ type: FAILURE_ACTION, payload: { error } })),
         startWith({ type: PENDING_ACTION }),
       )
     ),
